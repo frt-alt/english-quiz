@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>English Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2ff;
+      text-align: center;
+      padding: 24px;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 400px;
+      margin: 30px auto;
+    }
+    button {
+      padding: 14px;
+      margin: 7px;
+      border: none;
+      border-radius: 10px;
+      background: #4f46e5;
+      color: white;
+      font-size: 17px;
+    }
+  </style>
+</head>
+<body>
+  <h1>English Quiz 🇬🇧</h1>
+  <div class="card">
+    <h2 id="word">Apple</h2>
+    <p id="question">Apple kelimesinin Türkçesi nedir?</p>
+    <div id="answers"></div>
+    <p id="result"></p>
+    <button onclick="nextWord()">Sonraki kelime</button>
+  </div>
+  <script>
+    const words = [
+      {en:"Apple", tr:"Elma", options:["Elma","Armut","Muz"]},
+      {en:"Book", tr:"Kitap", options:["Kalem","Kitap","Masa"]},
+      {en:"Journey", tr:"Yolculuk", options:["Pencere","Yolculuk","Bahçe"]},
+      {en:"Careful", tr:"Dikkatli", options:["Dikkatli","Yorgun","Aç"]},
+      {en:"Improve", tr:"Geliştirmek", options:["Unutmak","Beklemek","Geliştirmek"]}
+    ];
+    let index = 0;
+    function showWord() {
+      const w = words[index];
+      document.getElementById("word").textContent = w.en;
+      document.getElementById("question").textContent =
+        w.en + " kelimesinin Türkçesi nedir?";
+      document.getElementById("result").textContent = "";
+      const box = document.getElementById("answers");
+      box.innerHTML = "";
+      w.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => {
+          document.getElementById("result").textContent =
+            option === w.tr ? "Doğru! 🎉" : "Tekrar dene!";
+        };
+        box.appendChild(btn);
+      });
+    }
+    function nextWord() {
+      index = (index + 1) % words.length;
+      showWord();
+    }
+    showWord();
+  </script>
+</body>
+</html>
